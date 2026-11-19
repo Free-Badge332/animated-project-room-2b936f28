@@ -88,10 +88,10 @@ export const projects: Project[] = [
     title: "Al-Qur'an Al-Kareem",
     subtitle: "Quran Reading App",
     description:
-      "A Quran app to browse all surahs with translations, verse counts, favorites, bookmarks, multiple languages and dark mode.",
-    image: "/projects-imgs/myquran.png",
+      "A Quran study companion with all 114 surahs, translations, recitations, azkar and duas, prayer times, a Ramadan tracker, hadith and bookmarks.",
+    image: "/projects-imgs/my-quran-onrender.png",
     technologies: ["React.js", "Tailwind CSS", "REST API"],
-    liveUrl: "https://my-quran-app-alpha.vercel.app/",
+    liveUrl: "https://my-quran.onrender.com/",
   },
   {
     id: 9,
