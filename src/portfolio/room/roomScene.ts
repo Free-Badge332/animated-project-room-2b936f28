@@ -33,8 +33,8 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
 
   let aboutCameraPos = { x: 0.12, y: 0.2, z: 0.55 };
   let aboutCameraRot = { x: -1.54, y: 0.13, z: 1.41 };
-  let projectsCameraPos = { x: 1, y: 0.45, z: 0.01 };
-  let projectsCameraRot = { x: 0.05, y: 0.05, z: 0 };
+  let projectsCameraPos = { x: 1.1, y: 0.8, z: 0.35 };
+  let projectsCameraRot = { x: 0, y: 0, z: 0 };
   const defaultCameraPos = { x: 1.009028643133046, y: 0.5463638814987481, z: 0.4983449671971262 };
   const defaultCamerRot = { x: -0.8313297556598935, y: 0.9383399492446749, z: 0.7240714481613063 };
 
@@ -168,12 +168,11 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
   projects.forEach((project, i) => {
     const tex = textureLoader.load(project.image);
     tex.colorSpace = THREE.SRGBColorSpace;
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry(0.71, 0.4), new THREE.MeshBasicMaterial({ color: 0xffffff, map: tex, transparent: true, opacity: 0 }));
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(0.54, 0.3), new THREE.MeshBasicMaterial({ color: 0xffffff, map: tex, transparent: true, opacity: 0 }));
     plane.name = "project";
     plane.userData = { url: project.url, mobileUrl: project.mobileUrl };
-    const j = i % ROOM_PAGE_SIZE;
-    const y = 1.1 - Math.floor(j / 3) * 0.5;
-    plane.position.set(0.3 + (j % 3) * 0.8, y, -1.15);
+    const y = 1.2 - Math.floor(i / 4) * 0.36;
+    plane.position.set(0.2 + (i % 4) * 0.6, y, -1.15);
     plane.scale.set(0, 0, 0);
     project.mesh = plane;
     project.originalY = y;
@@ -224,20 +223,15 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
     gsap.to(bookCover.rotation, { x: Math.PI, duration: 1.5, delay: 1.5 });
     if (theme !== "dark") gsap.to(roomLight, { intensity: 1, duration: 1.5 });
     gsap.delayedCall(1.5, () => cb.onFocusChange(true));
+    gsap.delayedCall(2.4, () => cb.onAboutOpen?.());
   }
-  function showProjects(page = 0) {
+  function showProjects() {
     controls.enabled = false; resetBookCover();
-    projects.forEach((p, i) => {
-      if (Math.floor(i / ROOM_PAGE_SIZE) !== page) {
-        gsap.killTweensOf(p.mesh.material); p.mesh.material.opacity = 0; p.mesh.scale.set(0, 0, 0);
-      }
-    });
     gsap.to(camera.position, { ...projectsCameraPos, duration: 1.5 });
     gsap.to(camera.rotation, { ...projectsCameraRot, duration: 1.5 });
     gsap.delayedCall(1.5, () => cb.onFocusChange(true));
     projects.forEach((p, i) => {
-      if (Math.floor(i / ROOM_PAGE_SIZE) !== page) return;
-      const k = i % ROOM_PAGE_SIZE;
+      const k = i;
       p.mesh.scale.set(1, 1, 1);
       gsap.to(p.mesh.material, { opacity: 1, duration: 1.5, delay: 1.5 + k * 0.1 });
       gsap.to(p.mesh.position, { y: p.originalY, duration: 1, delay: 1.5 + k * 0.1 });

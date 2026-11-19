@@ -7,9 +7,9 @@ const skills = ["html","css","javascript","typescript","react","nextJS","tailwin
 
 export type PanelKey = "about" | "skills" | "experience" | "work" | "certificates" | "contact";
 
-export const panelTitles: Record<PanelKey, string> = {
-  about: "About me", skills: "Skills & services", experience: "Experience",
-  work: "Projects", certificates: "Certificates", contact: "Contact",
+export const panelTitles: Record<string, string> = {
+  skills: "Skills & services", experience: "Experience",
+  certificates: "Certificates", contact: "Contact",
 };
 
 const RoomPanel = ({ panel, onClose }: { panel: PanelKey; onClose: () => void }) => {
