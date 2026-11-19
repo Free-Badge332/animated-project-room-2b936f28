@@ -5,47 +5,7 @@ export type Project = {
   subtitle: string;
   description: string;
   image: string;
-  technologies: string[  {
-    id: 7,
-    title: "FaydaRent",
-    subtitle: "Rental Marketplace",
-    description:
-      "A trust-first rental marketplace for Ethiopia where people find homes, vehicles and equipment from verified owners, with search by neighborhood, category and price.",
-    image: "/projects-imgs/techxpert.png",
-    technologies: ["React.js", "TypeScript", "Tailwind CSS", "Node.js"],
-    liveUrl: "https://techxpert-rental-market-place.vercel.app/",
-  },
-  {
-    id: 8,
-    title: "Al-Qur'an Al-Kareem",
-    subtitle: "Quran Reading App",
-    description:
-      "A Quran app to browse all surahs with translations, verse counts, favorites, bookmarks, multiple languages and dark mode.",
-    image: "/projects-imgs/myquran.png",
-    technologies: ["React.js", "Tailwind CSS", "REST API"],
-    liveUrl: "https://my-quran-app-alpha.vercel.app/",
-  },
-  {
-    id: 9,
-    title: "QemerTech",
-    subtitle: "Tech Education Platform",
-    description:
-      "An online learning platform offering industry-ready courses in web development, AI and mobile, with course listings, instructors and student sign-up.",
-    image: "/projects-imgs/qemer.png",
-    technologies: ["React.js", "Tailwind CSS", "Node.js"],
-    liveUrl: "https://qemer-final-project.vercel.app/",
-  },
-  {
-    id: 10,
-    title: "Socialbook",
-    subtitle: "Social Media Page",
-    description:
-      "A Facebook-style social page with stories, a post feed, events, friends sidebar and chat list.",
-    image: "/projects-imgs/qemer-fb.png",
-    technologies: ["HTML", "CSS", "JavaScript"],
-    liveUrl: "https://ezadin2.github.io/qemer_tech_project_facebookpage/",
-  },
-];
+  technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
 };
@@ -112,6 +72,46 @@ export const projects: Project[] = [
     technologies: ["Next.js", "Node.js", "Socket.io", "Tailwind CSS"],
     liveUrl: "https://nextjs-setup-gilt.vercel.app/",
     githubUrl: "https://github.com/ezadin2/nextjs-setup",
+  },
+  {
+    id: 7,
+    title: "FaydaRent",
+    subtitle: "Rental Marketplace",
+    description:
+      "A trust-first rental marketplace for Ethiopia where people find homes, vehicles and equipment from verified owners, with search by neighborhood, category and price.",
+    image: "/projects-imgs/techxpert.png",
+    technologies: ["React.js", "TypeScript", "Tailwind CSS", "Node.js"],
+    liveUrl: "https://techxpert-rental-market-place.vercel.app/",
+  },
+  {
+    id: 8,
+    title: "Al-Qur'an Al-Kareem",
+    subtitle: "Quran Reading App",
+    description:
+      "A Quran app to browse all surahs with translations, verse counts, favorites, bookmarks, multiple languages and dark mode.",
+    image: "/projects-imgs/myquran.png",
+    technologies: ["React.js", "Tailwind CSS", "REST API"],
+    liveUrl: "https://my-quran-app-alpha.vercel.app/",
+  },
+  {
+    id: 9,
+    title: "QemerTech",
+    subtitle: "Tech Education Platform",
+    description:
+      "An online learning platform offering industry-ready courses in web development, AI and mobile, with course listings, instructors and student sign-up.",
+    image: "/projects-imgs/qemer.png",
+    technologies: ["React.js", "Tailwind CSS", "Node.js"],
+    liveUrl: "https://qemer-final-project.vercel.app/",
+  },
+  {
+    id: 10,
+    title: "Socialbook",
+    subtitle: "Social Media Page",
+    description:
+      "A Facebook-style social page with stories, a post feed, events, friends sidebar and chat list.",
+    image: "/projects-imgs/qemer-fb.png",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    liveUrl: "https://ezadin2.github.io/qemer_tech_project_facebookpage/",
   },
 ];
 
