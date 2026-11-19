@@ -29,4 +29,11 @@ export const roomProjects: RoomProject[] = [
   { image: wholesale.url, url: "https://github.com/ezadin2/Flight-Booking-App-Flutter.git" },
   { image: chatApp.url, url: "https://github.com/ezadin2/nextjs-setup" },
   { image: audio.url, url: "https://github.com/ezadin2/Audio-player.git" },
+  { image: "/projects-imgs/quran.png", url: "https://hasset-delivery-front-end-side.onrender.com/" },
+  { image: "/projects-imgs/techxpert.png", url: "https://techxpert-rental-market-place.vercel.app/" },
+  { image: "/projects-imgs/my-quran-onrender.png", url: "https://my-quran.onrender.com/" },
+  { image: "/projects-imgs/qemer.png", url: "https://qemer-final-project.vercel.app/" },
+  { image: "/projects-imgs/qemer-fb.png", url: "https://ezadin2.github.io/qemer_tech_project_facebookpage/" },
 ];
+
+export const ROOM_PAGE_SIZE = 6;

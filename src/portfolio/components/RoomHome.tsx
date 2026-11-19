@@ -17,6 +17,7 @@ const RoomHome = () => {
   const [open, setOpen] = useState(false);
   const [panel, setPanel] = useState(null);
   const [view, setView] = useState("url");
+  const [page, setPage] = useState(null);
 
   useEffect(() => {
     const room = createRoom(wrap.current, canvas.current, {
@@ -41,11 +42,18 @@ const RoomHome = () => {
       </header>
       <nav className={`room-side ${open ? "open" : ""}`}>
         {focused ? (
-          <button onClick={() => api.current?.reset()}>← Back to room</button>
+          <>
+            <button onClick={() => { api.current?.reset(); setPage(null); }}>← Back to room</button>
+            {page !== null && api.current?.projectPages > 1 && (
+              <button onClick={() => { const n = (page + 1) % api.current.projectPages; setPage(n); api.current.showProjects(n); setOpen(false); }}>
+                More screens ({page + 1}/{api.current.projectPages})
+              </button>
+            )}
+          </>
         ) : (
           <>
             <button onClick={() => { api.current?.showAbout(); setOpen(false); }}>Open the book</button>
-            <button onClick={() => { api.current?.showProjects(); setOpen(false); }}>Project screens</button>
+            <button onClick={() => { api.current?.showProjects(0); setPage(0); setOpen(false); }}>Project screens</button>
           </>
         )}
         {Object.keys(panelTitles).map((k) => (

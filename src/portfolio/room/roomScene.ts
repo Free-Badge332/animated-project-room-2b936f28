@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
-import { roomAssets, roomProjects } from "./roomAssets";
+import { roomAssets, roomProjects, ROOM_PAGE_SIZE } from "./roomAssets";
 
 export type RoomTheme = "light" | "dark";
 export type RoomCallbacks = {
@@ -17,7 +17,8 @@ export type RoomCallbacks = {
 };
 export type RoomApi = {
   showAbout: () => void;
-  showProjects: () => void;
+  showProjects: (page?: number) => void;
+  projectPages: number;
   reset: () => void;
   dispose: () => void;
 };
@@ -170,8 +171,9 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
     const plane = new THREE.Mesh(new THREE.PlaneGeometry(0.71, 0.4), new THREE.MeshBasicMaterial({ color: 0xffffff, map: tex, transparent: true, opacity: 0 }));
     plane.name = "project";
     plane.userData = { url: project.url, mobileUrl: project.mobileUrl };
-    const y = 1.1 - Math.floor(i / 3) * 0.5;
-    plane.position.set(0.3 + (i % 3) * 0.8, y, -1.15);
+    const j = i % ROOM_PAGE_SIZE;
+    const y = 1.1 - Math.floor(j / 3) * 0.5;
+    plane.position.set(0.3 + (j % 3) * 0.8, y, -1.15);
     plane.scale.set(0, 0, 0);
     project.mesh = plane;
     project.originalY = y;
@@ -223,15 +225,22 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
     if (theme !== "dark") gsap.to(roomLight, { intensity: 1, duration: 1.5 });
     gsap.delayedCall(1.5, () => cb.onFocusChange(true));
   }
-  function showProjects() {
+  function showProjects(page = 0) {
     controls.enabled = false; resetBookCover();
+    projects.forEach((p, i) => {
+      if (Math.floor(i / ROOM_PAGE_SIZE) !== page) {
+        gsap.killTweensOf(p.mesh.material); p.mesh.material.opacity = 0; p.mesh.scale.set(0, 0, 0);
+      }
+    });
     gsap.to(camera.position, { ...projectsCameraPos, duration: 1.5 });
     gsap.to(camera.rotation, { ...projectsCameraRot, duration: 1.5 });
     gsap.delayedCall(1.5, () => cb.onFocusChange(true));
     projects.forEach((p, i) => {
+      if (Math.floor(i / ROOM_PAGE_SIZE) !== page) return;
+      const k = i % ROOM_PAGE_SIZE;
       p.mesh.scale.set(1, 1, 1);
-      gsap.to(p.mesh.material, { opacity: 1, duration: 1.5, delay: 1.5 + i * 0.1 });
-      gsap.to(p.mesh.position, { y: p.originalY, duration: 1, delay: 1.5 + i * 0.1 });
+      gsap.to(p.mesh.material, { opacity: 1, duration: 1.5, delay: 1.5 + k * 0.1 });
+      gsap.to(p.mesh.position, { y: p.originalY, duration: 1, delay: 1.5 + k * 0.1 });
     });
   }
 
@@ -286,6 +295,7 @@ export function createRoom(container: HTMLElement, canvas: HTMLCanvasElement, cb
 
   return {
     showAbout, showProjects, reset,
+    projectPages: Math.ceil(projects.length / ROOM_PAGE_SIZE),
     dispose() {
       disposed = true;
       renderer.setAnimationLoop(null);
